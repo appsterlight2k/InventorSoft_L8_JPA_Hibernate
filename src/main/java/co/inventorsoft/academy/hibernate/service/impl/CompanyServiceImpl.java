@@ -40,12 +40,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public void deleteCompany(Long id) {
         try {
-            Optional<Company> company = companyDAO.findById(id);
-            if (company.isPresent()) {
-                companyDAO.delete(company.get());
-            } else {
-                throw new IllegalArgumentException("Company with id " + id + " not found!");
-            }
+            companyDAO.delete(id);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
