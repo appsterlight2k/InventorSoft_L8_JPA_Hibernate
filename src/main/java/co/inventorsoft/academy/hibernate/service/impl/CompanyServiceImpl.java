@@ -1,11 +1,14 @@
 package co.inventorsoft.academy.hibernate.service.impl;
 
 import co.inventorsoft.academy.hibernate.dao.CompanyDAO;
+import co.inventorsoft.academy.hibernate.exception.DaoException;
+import co.inventorsoft.academy.hibernate.exception.ServiceException;
 import co.inventorsoft.academy.hibernate.model.Company;
 import co.inventorsoft.academy.hibernate.service.CompanyService;
+import java.util.Optional;
 
 public class CompanyServiceImpl implements CompanyService {
-    private CompanyDAO companyDAO;
+    private final CompanyDAO companyDAO;
 
     public CompanyServiceImpl(CompanyDAO companyDAO) {
         this.companyDAO = companyDAO;
@@ -13,27 +16,38 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void saveCompany(Company company) {
-        companyDAO.saveCompany(company);
+        try {
+            companyDAO.save(company);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override
-    public Company getCompanyById(Long id) {
+    public Optional<Company> getCompanyById(Long id) {
         return companyDAO.findById(id);
     }
 
     @Override
     public void updateCompany(Company company) {
-        companyDAO.updateCompany(company);
+        try {
+            companyDAO.update(company);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override
     public void deleteCompany(Long id) {
-        Company company = companyDAO.findById(id);
-        if (company != null) {
-            companyDAO.deleteCompany(company);
-        } else {
-            throw new IllegalArgumentException("Company with id " + id + " not found!");
+        try {
+            Optional<Company> company = companyDAO.findById(id);
+            if (company.isPresent()) {
+                companyDAO.delete(company.get());
+            } else {
+                throw new IllegalArgumentException("Company with id " + id + " not found!");
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
-
     }
 }
