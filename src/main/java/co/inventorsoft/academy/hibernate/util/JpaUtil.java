@@ -2,10 +2,11 @@ package co.inventorsoft.academy.hibernate.util;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-
 import java.util.Objects;
 
-public class JpaUtil {
+public final class JpaUtil {
+    private JpaUtil() { }
+
     private static final String PERSISTENCE_UNIT_NAME = "BasicEntitiesMySQL";
     private static EntityManagerFactory factory;
 
