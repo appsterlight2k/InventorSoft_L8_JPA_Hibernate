@@ -6,17 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
-//@RequiredArgsConstructor
 @Getter @Setter
 @EqualsAndHashCode
 @ToString
@@ -25,25 +22,33 @@ import lombok.ToString;
 public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-//    @NonNull
     @Column(nullable = false)
     private Long id;
-    @Column(name = "company_name")
+
+    @NotNull
+    @Column(name = "company_name", nullable = false)
     private String companyName;
+
     private String phone;
+
+    @NotNull
+    @Column(nullable = false)
     private String address;
+
+    @NotNull
+    @Column(nullable = false)
     private String city;
+
+    @NotNull
+    @Column(nullable = false)
     private String region;
+
+    @NotNull
+    @Column(nullable = false)
     private String zip;
+
+    @NotNull
+    @Column(nullable = false)
     private String country;
 
-    public Company(String companyName, String phone, String address, String city, String region, String zip, String country) {
-        this.companyName = companyName;
-        this.phone = phone;
-        this.address = address;
-        this.city = city;
-        this.region = region;
-        this.zip = zip;
-        this.country = country;
-    }
 }
