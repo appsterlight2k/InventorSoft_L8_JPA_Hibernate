@@ -30,7 +30,16 @@ public class App {
         EmployeeService employeeService = new EmployeeServiceImpl(employeeDAO);
 
         // Creating a new company
-        Company toyotaCompany = generateCompany();
+        Company lexusCompany = generateCompany(1);
+
+        // Saving the company in the database
+        companyService.saveCompany(lexusCompany);
+
+        // Deleting the company
+        companyService.deleteCompany(lexusCompany.getId());
+
+        // Creating a new company
+        Company toyotaCompany = generateCompany(2);
 
         // Saving the company in the database
         companyService.saveCompany(toyotaCompany);
@@ -73,17 +82,11 @@ public class App {
         JpaUtil.close();
     }
 
-    private static Company generateCompany() {
-        Company company = new Company();
-        company.setCompanyName("Toyota");
-        company.setPhone("(0565) 28-2121");
-        company.setAddress("1 Toyota-Cho");
-        company.setCity("Toyota City");
-        company.setRegion("Aichi Prefecture");
-        company.setZip("471-8571");
-        company.setCountry("Japan");
+    private static Company generateCompany(int number) {
+        Company company1 = new Company(null, "Lexus", "+81 (800) 200-7584", "Takatsujichō, 3-8-1", "Nagoya", "Aichi Prefecture", "466-0057", "Japan");
+        Company company2 = new Company(null, "Toyota", "+81 (0565) 28-2121", "1 Toyota-Cho", "Toyota City", "Aichi Prefecture", "471-8571", "Japan");
 
-        return company;
+        return number == 1 ? company1 : company2;
     }
 
     private static Employee generateEmployee(Company company) {
