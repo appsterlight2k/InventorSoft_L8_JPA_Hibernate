@@ -1,0 +1,21 @@
+<entity class="co.inventorsoft.academy.hibernate.model.Employee">
+    <table name="employees"/>
+    <attributes>
+        <id name="id">
+            <generated-value strategy="IDENTITY"/>
+        </id>
+        <basic name="firstname">
+            <column name="first_name" nullable="false"/>
+        </basic>
+        <basic name="lastname">
+            <column name="last_name" nullable="false"/>
+        </basic>
+        <basic name="phone"/>
+        <basic name="email">
+            <column nullable="false"/>
+        </basic>
+        <one-to-one name="company">
+            <join-column name="company_id"/>
+        </one-to-one>
+    </attributes>
+</entity>

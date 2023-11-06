@@ -1,0 +1,14 @@
+<entity-mappings>
+    <entity class="co.inventorsoft.academy.hibernate.model.Company">
+        <table name="companies"/>
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="companyName">
+                <column name="company_name" nullable="false"/>
+            </basic>
+            <!-- Other attributes here -->
+        </attributes>
+    </entity>
+</entity-mappings>
